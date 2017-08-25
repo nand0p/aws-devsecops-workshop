@@ -8,12 +8,14 @@ module Pipeline
       @params[:region] = ENV['AWS_REGION']
       @params[:region] ||= 'us-east-1'
 
-      clone_inspector
+      setup_inspector
       run_inspector
       cleanup_inspector
     end
 
-    def clone_inspector
+    def setup_inspector
+      puts("\n\n\n=== AWS Inspector ===\n\n")
+
       # Ensure a clean slate
       cleanup_inspector
 
@@ -24,7 +26,6 @@ module Pipeline
     def run_inspector
       ENV['AWS_REGION'] ||= 'us-east-1'
 
-      puts("\n\n=== AWS Inspector Report ===\n\n")
       Dir.chdir('inspector-status') do
         system 'bundle', 'install'
         system './inspector.rb', '--target-tags', 'InspectorAuditable:true',
