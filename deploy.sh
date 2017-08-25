@@ -35,21 +35,21 @@ if [ $# -gt 0 ]; then
       ;;
     delete)
       echo -e "\n\nDeleting DevSecOps Workshop Stack:\n\n"
-      aws cloudformation delete-stack --profile ${PROFILE} --stack-name ${STACK_NAME}
+      aws cloudformation delete-stack --stack-name ${STACK_NAME}
       ;;
     rezs)
       echo -e "\n\nDevSecOps Stack Resources:\n\n"
-      aws cloudformation describe-stack-resources --profile ${PROFILE} --stack-name ${STACK_NAME}
+      aws cloudformation describe-stack-resources --stack-name ${STACK_NAME}
       ;;
     status)
       echo -e "\n\nDevSecOps Stack Status:\n\n"
-      aws cloudformation describe-stacks --profile ${PROFILE} --stack-name ${STACK_NAME}
+      aws cloudformation describe-stacks --stack-name ${STACK_NAME}
       ;;
     watch)
-      watch "aws cloudformation describe-stack-events --profile ${PROFILE} --stack-name ${STACK_NAME}"
+      watch "aws cloudformation describe-stack-events --stack-name ${STACK_NAME}"
       ;;
     events)
-      aws cloudformation describe-stack-events --profile ${PROFILE} --stack-name ${STACK_NAME} | nl
+      aws cloudformation describe-stack-events --stack-name ${STACK_NAME} | nl
       ;;
     *) echo -e "\n\nValid commands are 'update', 'status', 'watch', 'events', 'rezs', or 'delete'\n\n"
       exit 1
